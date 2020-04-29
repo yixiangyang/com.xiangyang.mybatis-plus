@@ -1,4 +1,4 @@
-package com.xiangyang.application;
+package com.xiangyang.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
@@ -12,6 +12,7 @@ public class MyBatisPlusConfig {
     @Bean
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+        System.out.println("走了分页");
         return paginationInterceptor;
     }
 

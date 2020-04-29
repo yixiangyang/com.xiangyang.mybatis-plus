@@ -1,6 +1,7 @@
 package com.xiangyang.application;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiangyang.mapper.UserMapper;
 import com.xiangyang.model.User;
@@ -36,12 +37,16 @@ public class ApplicationTests {
 //        user.setName("这个是测试mybatis-plus2");
 //        userMapper.insert(user);
        System.out.println( userMapper.selectById(1l));
+
     System.out.println( userMapper.selectPage(new Page<User>(1,10),new QueryWrapper<User>().like("name","测试").orderByDesc("create_time")).getRecords());
     }
 
     @Test
     public void getUsers(){
-        System.out.println(userMapper.getUser());
+//        System.out.println(userMapper.getUser());
+        Page<User> page = new Page<>(1l,3l);
+
+        System.out.println(userMapper.getUsers(page));
     }
 
 }
