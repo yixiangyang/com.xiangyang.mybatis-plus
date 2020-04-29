@@ -52,17 +52,18 @@ public class ApplicationTests {
 
     @Test
     public void getUsers(){
-//        System.out.println(userMapper.getUser());
+        System.out.println(userMapper.getUser());
         Page<User> page = new Page<>(1l,3l);
         QueryWrapper queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("u.id","10");
         IPage<UserVO> iPage = userMapper.getUsers(page,queryWrapper);
         System.out.println(iPage.getRecords());
         System.out.println(iPage.getTotal());
-//        com.github.pagehelper.Page<User> pp= PageHelper.startPage(1,3);
-//
-//        PageInfo<UserVO> aa = userMapper.getUserList(pp);
-//        System.out.println("这个是使用pageInfo:"+aa.toString());
+        com.github.pagehelper.Page<User> pp= PageHelper.startPage(1,3);
+
+        PageInfo aa = new PageInfo(userMapper.getUserList(pp));
+        System.out.println("这个是使用pageInfo:"+aa.toString());
+        System.out.println("这个是使用pageHelper"+aa.getList().toString());
     }
 
     @Test

@@ -13,21 +13,23 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan("com.xiangyang.mapper")
 public class MyBatisPlusConfig {
     //指定使用默认分页
-    @Bean
-    public PaginationInterceptor paginationInterceptor() {
-        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
-        System.out.println("走了分页");
-        return paginationInterceptor;
-    }
-    //--------指定使用pageHelper插件
 //    @Bean
 //    public PaginationInterceptor paginationInterceptor() {
-//        return new PaginationInterceptor();
+//        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+//        System.out.println("走了分页");
+//        return paginationInterceptor;
 //    }
-//
-//    @Bean
-//    public ConfigurationCustomizer mybatisConfigurationCustomizer() {
-//        System.out.println("是否走了这个");
-//        return configuration -> configuration.addInterceptor(new com.github.pagehelper.PageInterceptor());
-//    }
+
+
+    //--------指定使用pageHelper插件
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        return new PaginationInterceptor();
+    }
+
+    @Bean
+    public ConfigurationCustomizer mybatisConfigurationCustomizer() {
+        System.out.println("是否走了这个");
+        return configuration -> configuration.addInterceptor(new com.github.pagehelper.PageInterceptor());
+    }
 }

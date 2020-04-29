@@ -26,7 +26,7 @@ public interface UserMapper extends BaseMapper<User> {
             " from user0 u left join test_user tu on u.id =tu.id ${ew.customSqlSegment} ")
     public IPage<UserVO> getUsers(Page<User> page,@Param(Constants.WRAPPER) QueryWrapper queryWrapper);
 
-//    @Select("select u.id uId,u.name uName,tu.id tId,tu.name tName" +
-//            " from user0 u left join test_user tu on u.id =tu.id ")
-//    public PageInfo<UserVO> getUserList(com.github.pagehelper.Page<User> page);
+    @Select("select u.id uId,u.name uName,tu.id tId,tu.name tName" +
+            " from user0 u left join test_user tu on u.id =tu.id ")
+    public List<UserVO> getUserList(com.github.pagehelper.Page<User> page);
 }
