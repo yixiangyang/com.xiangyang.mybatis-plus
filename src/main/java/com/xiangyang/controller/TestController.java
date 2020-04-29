@@ -18,10 +18,10 @@ public class TestController {
     @Resource
     private UserMapper userMapper;
 
-    @GetMapping("/test")
-    public IPage<UserVO> getUser(){
-        Page<User> page = new Page<>(1l,3l);
-        IPage<UserVO> iPage = userMapper.getUsers(page);
-        return iPage;
-    }
+//    @GetMapping("/test")
+//    public IPage<UserVO> getUser(){
+//        Page<User> page = new Page<>(1l,3l);
+//        IPage<UserVO> iPage = userMapper.getUsers(page);
+//        return iPage;
+//    }
 }

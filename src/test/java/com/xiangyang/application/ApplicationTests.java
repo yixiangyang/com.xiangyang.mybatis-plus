@@ -3,6 +3,8 @@ package com.xiangyang.application;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xiangyang.mapper.TestUserMapper;
 import com.xiangyang.mapper.UserMapper;
 import com.xiangyang.model.TestUser;
@@ -52,10 +54,15 @@ public class ApplicationTests {
     public void getUsers(){
 //        System.out.println(userMapper.getUser());
         Page<User> page = new Page<>(1l,3l);
-        IPage<UserVO> iPage = userMapper.getUsers(page);
+        QueryWrapper queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("u.id","10");
+        IPage<UserVO> iPage = userMapper.getUsers(page,queryWrapper);
         System.out.println(iPage.getRecords());
         System.out.println(iPage.getTotal());
-
+//        com.github.pagehelper.Page<User> pp= PageHelper.startPage(1,3);
+//
+//        PageInfo<UserVO> aa = userMapper.getUserList(pp);
+//        System.out.println("这个是使用pageInfo:"+aa.toString());
     }
 
     @Test
@@ -79,6 +86,9 @@ public class ApplicationTests {
         testUser.setName("这个是mybatis_plus测试");
         testUserMapper.insert(testUser);
         System.out.println("这个是获取的testUserid:"+testUser.getId());
-
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("id");
+        List<User> users = userService.list(queryWrapper);
+        users.forEach(user -> System.out.println(user.toString()));
     }
 }
