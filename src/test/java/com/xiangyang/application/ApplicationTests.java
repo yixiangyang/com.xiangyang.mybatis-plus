@@ -11,6 +11,7 @@ import com.xiangyang.model.TestUser;
 import com.xiangyang.model.User;
 import com.xiangyang.model.UserVO;
 import com.xiangyang.service.UserService;
+import com.xiangyang.util.LocalDateUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -91,5 +92,9 @@ public class ApplicationTests {
         queryWrapper.select("id");
         List<User> users = userService.list(queryWrapper);
         users.forEach(user -> System.out.println(user.toString()));
+    }
+
+    public static void main(String[] args) {
+        System.out.println(LocalDateUtil.getCurrentDate());
     }
 }

@@ -6,6 +6,33 @@ spring:
     username: root
     password: xiangyang123
     driver-class-name: com.mysql.cj.jdbc.Driver
+  application:
+    name: dddddddddddd
+app:
+  id: apollo-test
+apollo:
+  meta: http://121.41.56.97:8082
+  bootstrap:
+    enabled: true
+    namespace: dddddddd
+    eagerLoad:
+      enabled: true
+env: pro
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+#eureka:
+#  instance:
+#    hostname: localhost
+#  client:
+#    service-url:
+#      defaultZone: http://121.41.56.97:8082/eureka
+
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: "${EUREKA_URL:http://121.41.56.97:8082/eureka}"
 #mybatis-plus:
 #  configuration:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -19,3 +46,10 @@ pagehelper:
   support-methods-arguments: true
   pageSizeZero: true
   params: count=countSql
+demo:
+  rocketmq:
+    transTopic: spring-transaction-topic
+rocketmq:
+  name-server: 121.41.56.97:9876
+  producer:
+    group: group1
