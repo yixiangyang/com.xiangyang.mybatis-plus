@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @MapperScan("com.xiangyang.mapper")
 @ComponentScan(basePackages = {"com.xiangyang.model","com.xiangyang.service",
-        "com.xiangyang.config","com.xiangyang.controller"})
+        "com.xiangyang.config","com.xiangyang.controller","com.xiangyang.esearch"})
 @EnableApolloConfig
 //@EnableEurekaClient
 public class Application {

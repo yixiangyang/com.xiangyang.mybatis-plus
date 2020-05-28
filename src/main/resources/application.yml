@@ -39,7 +39,7 @@ eureka:
 
 logging:
   level:
-    com.xiangyang.mapper: debug
+    com.xiangyang.mapper: info
 pagehelper:
   helper-dialect: mysql
   reasonable: true

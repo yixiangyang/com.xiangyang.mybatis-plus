@@ -3,21 +3,29 @@ package com.xiangyang.application;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fasterxml.jackson.core.JsonProcessingException;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xiangyang.esearch.ESClient;
+import com.xiangyang.esearch.xiangyangDefaultEsClient;
+import com.xiangyang.mapper.ShopMapper;
 import com.xiangyang.mapper.TestUserMapper;
 import com.xiangyang.mapper.UserMapper;
+import com.xiangyang.model.Shop;
 import com.xiangyang.model.TestUser;
 import com.xiangyang.model.User;
 import com.xiangyang.model.UserVO;
 import com.xiangyang.service.UserService;
-import com.xiangyang.util.LocalDateUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +39,35 @@ public class ApplicationTests {
     private UserService userService;
     @Resource
     private TestUserMapper testUserMapper;
+    @Resource
+    private ShopMapper shopMapper;
+    @Autowired
+    private ESClient esClient;
+    @Test
+    public void addShop() throws JsonProcessingException {
+        List<User> users =userMapper.selectList(new QueryWrapper<>());
+        System.out.println(users.size());
+        xiangyangDefaultEsClient defaultEsClient = new xiangyangDefaultEsClient();
+        List<Shop> shops = shopMapper.selectList(new QueryWrapper<Shop>());
+
+        System.out.println("这个是获取的门店大小"+shops.size());
+        for(Shop shop:shops){
+            System.out.println("这个是门店id："+shop.getId());
+            List<Shop.Dept> depts = new ArrayList<>();
+            depts.add(new Shop.Dept(1,"部门名字"));
+            depts.add(new Shop.Dept(2,"部门名字2"));
+            shop.setDepts(depts);
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonString = mapper.writeValueAsString(shop);
+            esClient.indexDocument("shops",String.valueOf(shop.getId()),jsonString);
+        }
+
+    }
+
+    @Test
+    public void  getShop(){
+        System.out.println(esClient.getDocument("shops","1178"));
+    }
 
     @Test
     public void contextLoads() {
@@ -95,6 +132,6 @@ public class ApplicationTests {
     }
 
     public static void main(String[] args) {
-        System.out.println(LocalDateUtil.getCurrentDate());
+//        System.out.println(LocalDateUtil.getCurrentDate());
     }
 }

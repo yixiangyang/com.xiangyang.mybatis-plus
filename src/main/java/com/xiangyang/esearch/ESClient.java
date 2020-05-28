@@ -1,0 +1,149 @@
+package com.xiangyang.esearch;
+
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.search.aggregations.AggregationBuilder;
+import org.elasticsearch.search.sort.SortOrder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ *
+ *     es客户端
+ *
+ */
+public interface ESClient {
+
+	/**
+	 * 获取文档
+	 *
+	 * @param index 索引
+	 * @param id 文档ID
+	 * @return
+	 * @throws RuntimeException
+	 */
+	public Map<String, Object> getDocument(String index, String id) throws RuntimeException;
+
+	/**
+	 * 索引覆盖文档
+	 *
+	 * @param index
+	 * @param id
+	 * @param doc
+	 * @return
+	 * @throws RuntimeException
+	 */
+	public boolean indexDocument(String index, String id, Map<String, Object> doc) throws RuntimeException;
+
+	/**
+	 * 索引覆盖文档
+	 *
+	 * @param index
+	 * @param id
+	 * @param doc
+	 * @return
+	 * @throws RuntimeException
+	 */
+	public boolean indexDocument(String index, String id, String jsonString) throws RuntimeException;
+
+	/**
+	 * 更新文档
+	 *
+	 * @param index
+	 * @param id
+	 * @param doc
+	 * @return
+	 * @throws RuntimeException
+	 */
+	public boolean updateDocument(String index, String id, Map<String, Object> doc)
+			throws RuntimeException;
+
+	/**
+	 * 删除文档
+	 *
+	 * @param index
+	 * @param type
+	 * @param id
+	 * @return
+	 * @throws RuntimeException
+	 */
+	public boolean deleteDocument(String index, String id) throws RuntimeException;
+
+	 /**
+	  * 按照查询条件去更新es文档的数据
+	  * @param index 索引
+	  * @param queryBuilders 查询条件
+	  * @param params 参数和值
+	  * @return 返回更新的条数
+	  */
+    public Long updateDocumentByQuery(String index, List<QueryBuilder> queryBuilders, Map<String, Object> params);
+
+    /**
+     * 按照查询条件去删除es文档的数据
+     * @param index 索引
+     * @param queryBuilderList 查询条件
+     * @return  返回删除的条数
+     */
+    public Long deleteDocumentByQuery(String index, List<QueryBuilder> queryBuilderList);
+
+
+    public Map<String, Object> searchDocuments(String index, List<QueryBuilder> queryBuilders, Integer from, Integer size,
+                                               String sortField, SortOrder sortOrder, AggregationBuilder aggregationBuilder) throws RuntimeException;
+
+
+
+    /**
+     * 创建索引和映射
+     * @param index 索引
+     * @param source 格式 "properties"{
+     *  "字段名字":{"type":"类型"
+     *  }
+     *  }
+     * @return
+     */
+    public Boolean createIndexAndMapping(String index, Map<String, Object> source);
+
+    /**
+     * 创建索引和映射
+	 * @param index
+     * @param xContentBuilder
+	 *  XContentBuilder builder = XContentFactory.jsonBuilder();
+	 * 		builder.startObject();
+	 *                {
+	 * 			builder.startObject("properties");
+	 *            {
+	 * 				builder.startObject("message");
+	 *                {
+	 * 					builder.field("type", "text");
+	 *                }
+	 * 				builder.endObject();
+	 * 				builder.startObject("aa").startObject("properties");
+	 *                {
+	 * 					builder.startObject("name").field("type","text").endObject();
+	 *
+	 *                }
+	 * 				builder.endObject();
+	 *            }
+	 * 			builder.endObject();
+	 *        }
+	 * 		builder.endObject();
+	 * @return
+     */
+	public Boolean createIndexAndMapping(String index, XContentBuilder xContentBuilder);
+
+    /**
+     * 删除索引API
+     * @param index 索引名字
+     * @return
+     */
+    public Boolean deleteIndex(String index);
+
+    /**
+     * 索引是否存在
+     * @param index
+     * @return
+     */
+    public Boolean indexExists(String index);
+}
