@@ -11,7 +11,7 @@
     <!--
     <classPathEntry
             location="E:\app\Acer\product\11.2.0\client_2\jdbc\lib\ojdbc5.jar"/>-->
-    <context id="Tables" targetRuntime="MyBatis3">
+    <context id="Tables1" targetRuntime="MyBatis3">
         <!--去除注释 -->
 
         <commentGenerator>
@@ -24,6 +24,7 @@
                         connectionURL="jdbc:mysql://yxy.gold:3317/xiangyang0"
                         userId="root"
                         password="xiangyang123">
+            <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
         <!--oracle数据库连接 -->
         <!--
@@ -58,7 +59,8 @@
         </javaClientGenerator>
 
         <!--对应数据库表 mysql可以加入主键自增 字段命名 忽略某字段等 -->
-        <table tableName="shops" domainObjectName="Shops"
+        <!--schema 设置连接的数据库 -->
+        <table schema="xiangyang0" tableName="shops" domainObjectName="Shops"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"/>
