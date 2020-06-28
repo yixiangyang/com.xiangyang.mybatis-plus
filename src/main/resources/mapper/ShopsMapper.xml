@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ShopsMapper">
+  <resultMap id="BaseResultMap" type="com.dao.Shops">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="CHAR" property="code" />
+    <result column="enabled" jdbcType="CHAR" property="enabled" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="begin_time" jdbcType="CHAR" property="beginTime" />
+    <result column="end_time" jdbcType="CHAR" property="endTime" />
+    <result column="open_date" jdbcType="DATE" property="openDate" />
+    <result column="close_date" jdbcType="DATE" property="closeDate" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="modified" jdbcType="TIMESTAMP" property="modified" />
+    <result column="division_id" jdbcType="INTEGER" property="divisionId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.dao.Shops">
+    <result column="memo" jdbcType="LONGVARCHAR" property="memo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, code, enabled, level, address, phone, begin_time, end_time, open_date, 
+    close_date, created, modified, division_id
+  </sql>
+  <sql id="Blob_Column_List">
+    memo
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from shops
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shops
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dao.Shops">
+    insert into shops (id, name, code, 
+      enabled, level, address, 
+      phone, begin_time, end_time, 
+      open_date, close_date, created, 
+      modified, division_id, memo
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=CHAR}, 
+      #{enabled,jdbcType=CHAR}, #{level,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{beginTime,jdbcType=CHAR}, #{endTime,jdbcType=CHAR}, 
+      #{openDate,jdbcType=DATE}, #{closeDate,jdbcType=DATE}, #{created,jdbcType=TIMESTAMP}, 
+      #{modified,jdbcType=TIMESTAMP}, #{divisionId,jdbcType=INTEGER}, #{memo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dao.Shops">
+    insert into shops
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="openDate != null">
+        open_date,
+      </if>
+      <if test="closeDate != null">
+        close_date,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="modified != null">
+        modified,
+      </if>
+      <if test="divisionId != null">
+        division_id,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=CHAR},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=CHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=CHAR},
+      </if>
+      <if test="openDate != null">
+        #{openDate,jdbcType=DATE},
+      </if>
+      <if test="closeDate != null">
+        #{closeDate,jdbcType=DATE},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified != null">
+        #{modified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="divisionId != null">
+        #{divisionId,jdbcType=INTEGER},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dao.Shops">
+    update shops
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=CHAR},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=CHAR},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=CHAR},
+      </if>
+      <if test="openDate != null">
+        open_date = #{openDate,jdbcType=DATE},
+      </if>
+      <if test="closeDate != null">
+        close_date = #{closeDate,jdbcType=DATE},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified != null">
+        modified = #{modified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="divisionId != null">
+        division_id = #{divisionId,jdbcType=INTEGER},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dao.Shops">
+    update shops
+    set name = #{name,jdbcType=VARCHAR},
+      code = #{code,jdbcType=CHAR},
+      enabled = #{enabled,jdbcType=CHAR},
+      level = #{level,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      begin_time = #{beginTime,jdbcType=CHAR},
+      end_time = #{endTime,jdbcType=CHAR},
+      open_date = #{openDate,jdbcType=DATE},
+      close_date = #{closeDate,jdbcType=DATE},
+      created = #{created,jdbcType=TIMESTAMP},
+      modified = #{modified,jdbcType=TIMESTAMP},
+      division_id = #{divisionId,jdbcType=INTEGER},
+      memo = #{memo,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dao.Shops">
+    update shops
+    set name = #{name,jdbcType=VARCHAR},
+      code = #{code,jdbcType=CHAR},
+      enabled = #{enabled,jdbcType=CHAR},
+      level = #{level,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      begin_time = #{beginTime,jdbcType=CHAR},
+      end_time = #{endTime,jdbcType=CHAR},
+      open_date = #{openDate,jdbcType=DATE},
+      close_date = #{closeDate,jdbcType=DATE},
+      created = #{created,jdbcType=TIMESTAMP},
+      modified = #{modified,jdbcType=TIMESTAMP},
+      division_id = #{divisionId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

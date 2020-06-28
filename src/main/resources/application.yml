@@ -17,6 +17,8 @@ apollo:
     namespace: dddddddd
     eagerLoad:
       enabled: true
+exception:
+  enabled: false
 env: pro
 eureka:
   client:
